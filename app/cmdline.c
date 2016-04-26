@@ -200,7 +200,7 @@ cmdline_parse_inst_t cmd_loglevel = {
     .help_str = "loglevel level",
     .tokens =
 	{
-	    (void *)&cmd_loglevel_loglevel, (void *) & cmd_loglevel_level, NULL,
+	    (void *)&cmd_loglevel_loglevel, (void *)&cmd_loglevel_level, NULL,
 	},
 };
 
@@ -232,8 +232,8 @@ cmdline_parse_inst_t cmd_logtype = {
     .help_str = "logtype type enable",
     .tokens =
 	{
-	    (void *)&cmd_logtype_logtype, (void *) & cmd_logtype_type,
-	    (void *) & cmd_logtype_enable, NULL,
+	    (void *)&cmd_logtype_logtype, (void *)&cmd_logtype_type,
+	    (void *)&cmd_logtype_enable, NULL,
 	},
 };
 
@@ -280,8 +280,8 @@ cmdline_parse_inst_t cmd_showport = {
     .help_str = "show|clear port info|stats|xstats X (X = port number)",
     .tokens =
 	{
-	    (void *)&cmd_showport_show, (void *) & cmd_showport_port,
-	    (void *) & cmd_showport_what, (void *) & cmd_showport_portnum, NULL,
+	    (void *)&cmd_showport_show, (void *)&cmd_showport_port,
+	    (void *)&cmd_showport_what, (void *)&cmd_showport_portnum, NULL,
 	},
 };
 
@@ -291,9 +291,9 @@ cmdline_parse_inst_t cmd_showport_json = {
     .help_str = "show|clear port info|stats|xstats X (X = port number)",
     .tokens =
 	{
-	    (void *)&cmd_showport_show, (void *) & cmd_showport_port,
-	    (void *) & cmd_showport_what, (void *) & cmd_showport_portnum,
-	    (void *) & cmd_showport_option, NULL,
+	    (void *)&cmd_showport_show, (void *)&cmd_showport_port,
+	    (void *)&cmd_showport_what, (void *)&cmd_showport_portnum,
+	    (void *)&cmd_showport_option, NULL,
 	},
 };
 
@@ -338,9 +338,9 @@ cmdline_parse_inst_t cmd_showport_rss_hash = {
     .tokens =
 	{
 	    (void *)&cmd_showport_rss_hash_show,
-	    (void *) & cmd_showport_rss_hash_port,
-	    (void *) & cmd_showport_rss_hash_port_id,
-	    (void *) & cmd_showport_rss_hash_rss_hash, NULL,
+	    (void *)&cmd_showport_rss_hash_port,
+	    (void *)&cmd_showport_rss_hash_port_id,
+	    (void *)&cmd_showport_rss_hash_rss_hash, NULL,
 	},
 };
 
@@ -351,10 +351,10 @@ cmdline_parse_inst_t cmd_showport_rss_hash_key = {
     .tokens =
 	{
 	    (void *)&cmd_showport_rss_hash_show,
-	    (void *) & cmd_showport_rss_hash_port,
-	    (void *) & cmd_showport_rss_hash_port_id,
-	    (void *) & cmd_showport_rss_hash_rss_hash,
-	    (void *) & cmd_showport_rss_hash_rss_key, NULL,
+	    (void *)&cmd_showport_rss_hash_port,
+	    (void *)&cmd_showport_rss_hash_port_id,
+	    (void *)&cmd_showport_rss_hash_rss_hash,
+	    (void *)&cmd_showport_rss_hash_rss_key, NULL,
 	},
 };
 
@@ -417,9 +417,9 @@ cmdline_parse_inst_t cmd_config_rss = {
     .help_str = "port config all rss all|ip|tcp|udp|sctp|ether|none",
     .tokens =
 	{
-	    (void *)&cmd_config_rss_port, (void *) & cmd_config_rss_keyword,
-	    (void *) & cmd_config_rss_all, (void *) & cmd_config_rss_name,
-	    (void *) & cmd_config_rss_value, NULL,
+	    (void *)&cmd_config_rss_port, (void *)&cmd_config_rss_keyword,
+	    (void *)&cmd_config_rss_all, (void *)&cmd_config_rss_name,
+	    (void *)&cmd_config_rss_value, NULL,
 	},
 };
 
@@ -510,10 +510,10 @@ cmdline_parse_inst_t cmd_config_rss_hash_key = {
     .tokens =
 	{
 	    (void *)&cmd_config_rss_hash_key_port,
-	    (void *) & cmd_config_rss_hash_key_config,
-	    (void *) & cmd_config_rss_hash_key_port_id,
-	    (void *) & cmd_config_rss_hash_key_rss_hash_key,
-	    (void *) & cmd_config_rss_hash_key_value, NULL,
+	    (void *)&cmd_config_rss_hash_key_config,
+	    (void *)&cmd_config_rss_hash_key_port_id,
+	    (void *)&cmd_config_rss_hash_key_rss_hash_key,
+	    (void *)&cmd_config_rss_hash_key_value, NULL,
 	},
 };
 
@@ -643,11 +643,11 @@ cmdline_parse_inst_t cmd_config_rss_reta = {
     .tokens =
 	{
 	    (void *)&cmd_config_rss_reta_port,
-	    (void *) & cmd_config_rss_reta_keyword,
-	    (void *) & cmd_config_rss_reta_port_id,
-	    (void *) & cmd_config_rss_reta_name,
-	    (void *) & cmd_config_rss_reta_list_name,
-	    (void *) & cmd_config_rss_reta_list_of_items, NULL,
+	    (void *)&cmd_config_rss_reta_keyword,
+	    (void *)&cmd_config_rss_reta_port_id,
+	    (void *)&cmd_config_rss_reta_name,
+	    (void *)&cmd_config_rss_reta_list_name,
+	    (void *)&cmd_config_rss_reta_list_of_items, NULL,
 	},
 };
 
@@ -751,11 +751,10 @@ cmdline_parse_inst_t cmd_showport_reta = {
     .help_str = "show port X rss reta (size) (mask0,mask1,...)",
     .tokens =
 	{
-	    (void *)&cmd_showport_reta_show, (void *) & cmd_showport_reta_port,
-	    (void *) & cmd_showport_reta_port_id,
-	    (void *) & cmd_showport_reta_rss, (void *) & cmd_showport_reta_reta,
-	    (void *) & cmd_showport_reta_size,
-	    (void *) & cmd_showport_reta_list_of_items, NULL,
+	    (void *)&cmd_showport_reta_show, (void *)&cmd_showport_reta_port,
+	    (void *)&cmd_showport_reta_port_id, (void *)&cmd_showport_reta_rss,
+	    (void *)&cmd_showport_reta_reta, (void *)&cmd_showport_reta_size,
+	    (void *)&cmd_showport_reta_list_of_items, NULL,
 	},
 };
 
@@ -820,7 +819,7 @@ cmdline_parse_inst_t cmd_obj_lpm_lkp = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_obj_action_lpm_lkp, (void *) & cmd_obj_lpm_ip, NULL,
+	    (void *)&cmd_obj_action_lpm_lkp, (void *)&cmd_obj_lpm_ip, NULL,
 	},
 };
 
@@ -879,8 +878,8 @@ cmdline_parse_inst_t cmd_obj_rlimit = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_obj_action_rlimit, (void *) & cmd_obj_rlimit_ip,
-	    (void *) & cmd_obj_rlimit_num, NULL,
+	    (void *)&cmd_obj_action_rlimit, (void *)&cmd_obj_rlimit_ip,
+	    (void *)&cmd_obj_rlimit_num, NULL,
 	},
 };
 
@@ -891,8 +890,8 @@ cmdline_parse_inst_t cmd_obj_rlimit_net = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_obj_action_rlimit, (void *) & cmd_obj_rlimit_ipnet,
-	    (void *) & cmd_obj_rlimit_num, NULL,
+	    (void *)&cmd_obj_action_rlimit, (void *)&cmd_obj_rlimit_ipnet,
+	    (void *)&cmd_obj_rlimit_num, NULL,
 	},
 };
 
@@ -936,8 +935,8 @@ cmdline_parse_inst_t cmd_obj_acl_add = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_obj_action_acl_add, (void *) & cmd_obj_acl_proto,
-	    (void *) & cmd_obj_acl_path, NULL,
+	    (void *)&cmd_obj_action_acl_add, (void *)&cmd_obj_acl_proto,
+	    (void *)&cmd_obj_acl_path, NULL,
 	},
 };
 
@@ -983,7 +982,7 @@ cmdline_parse_inst_t cmd_stats_json = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_stats_stats, (void *) & cmd_stats_stats_json, NULL,
+	    (void *)&cmd_stats_stats, (void *)&cmd_stats_stats_json, NULL,
 	},
 };
 
@@ -994,8 +993,8 @@ cmdline_parse_inst_t cmd_stats_csv = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_stats_stats, (void *) & cmd_stats_stats_csv,
-	    (void *) & cmd_stats_stats_delay, NULL,
+	    (void *)&cmd_stats_stats, (void *)&cmd_stats_stats_csv,
+	    (void *)&cmd_stats_stats_delay, NULL,
 	},
 };
 
@@ -1031,7 +1030,7 @@ cmdline_parse_inst_t cmd_lpm_stats = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_lpm_stats_stats, (void *) & cmd_lpm_stats_proto, NULL,
+	    (void *)&cmd_lpm_stats_stats, (void *)&cmd_lpm_stats_proto, NULL,
 	},
 };
 
@@ -1042,8 +1041,8 @@ cmdline_parse_inst_t cmd_lpm_stats_json = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_lpm_stats_stats, (void *) & cmd_lpm_stats_proto,
-	    (void *) & cmd_lpm_stats_stats_json, NULL,
+	    (void *)&cmd_lpm_stats_stats, (void *)&cmd_lpm_stats_proto,
+	    (void *)&cmd_lpm_stats_stats_json, NULL,
 	},
 };
 
@@ -1124,7 +1123,7 @@ cmdline_parse_inst_t cmd_neigh = {
     .tokens =
 	{
 	    /* token list, NULL terminated */
-	    (void *)&cmd_neigh_neigh, (void *) & cmd_neigh_proto, NULL,
+	    (void *)&cmd_neigh_neigh, (void *)&cmd_neigh_proto, NULL,
 	},
 };
 
@@ -1403,12 +1402,12 @@ cmdline_run(void *data)
 				break;
 			}
 			for (i = 0; i < CMDLINE_MAX_CLIENTS; i++) {
-				if (cmdline_clients[RTE_PER_LCORE(
-					g_socket_id)][i]
-					.cl == NULL) {
+				if (cmdline_clients[RTE_PER_LCORE(g_socket_id)]
+						   [i].cl == NULL) {
 					cmdline_clients[RTE_PER_LCORE(
-					    g_socket_id)][i]
-					    .cl = cmdline_new_unixsock(res);
+					    g_socket_id)]
+						       [i].cl =
+					    cmdline_new_unixsock(res);
 					break;
 				}
 			}
@@ -1434,14 +1433,14 @@ cmdline_run(void *data)
 					continue;
 				}
 				// read error, closing conn
-				ret = cmdline_in(cmdline_clients[RTE_PER_LCORE(
-						     g_socket_id)][j]
-						     .cl,
-						 buf, ret);
+				ret = cmdline_in(
+				    cmdline_clients[RTE_PER_LCORE(g_socket_id)]
+						   [j].cl,
+				    buf, ret);
 				if (ret < 0 &&
-				    cmdline_clients[RTE_PER_LCORE(
-					g_socket_id)][j]
-					    .cl->rdl.status == RDLINE_EXITED) {
+				    cmdline_clients[RTE_PER_LCORE(g_socket_id)]
+						   [j].cl->rdl.status ==
+					RDLINE_EXITED) {
 					cmdline_clients_close(j);
 				}
 			}
@@ -1450,31 +1449,30 @@ cmdline_run(void *data)
 		nfds = 1;
 		for (i = 0; i < CMDLINE_MAX_CLIENTS; i++) {
 			if (cmdline_clients[RTE_PER_LCORE(g_socket_id)][i].cl) {
-				if (cmdline_clients[RTE_PER_LCORE(
-					g_socket_id)][i]
-					.csv_delay) {
+				if (cmdline_clients[RTE_PER_LCORE(g_socket_id)]
+						   [i].csv_delay) {
 					if ((time(NULL) -
 					     cmdline_clients[RTE_PER_LCORE(
-						 g_socket_id)][i]
-						 .delay_timer) >=
+						 g_socket_id)]
+							    [i].delay_timer) >=
 					    cmdline_clients[RTE_PER_LCORE(
-						g_socket_id)][i]
-						.csv_delay) {
+						g_socket_id)]
+							   [i].csv_delay) {
 						pktj_stats_display(
 						    cmdline_clients
 							[RTE_PER_LCORE(
-							    g_socket_id)][i]
-							    .cl,
+							    g_socket_id)]
+							[i].cl,
 						    2, cmdline_clients
 							   [RTE_PER_LCORE(
-							       g_socket_id)][i]
-							       .csv_delay);
+							       g_socket_id)]
+							   [i].csv_delay);
 					}
 				}
 
-				fds[nfds].fd = cmdline_clients[RTE_PER_LCORE(
-				    g_socket_id)][i]
-						   .cl->s_in;
+				fds[nfds].fd =
+				    cmdline_clients[RTE_PER_LCORE(g_socket_id)]
+						   [i].cl->s_in;
 				fds[nfds].events = POLLIN;
 				nfds++;
 			}
@@ -1484,19 +1482,18 @@ cmdline_run(void *data)
 	for (i = 0; i < CMDLINE_MAX_CLIENTS; i++) {
 		if (cmdline_clients[RTE_PER_LCORE(g_socket_id)][i].cl) {
 #define CMDLINE_QUIT_MSG "PKTJ closing...\n"
-			ret =
-			    write(cmdline_clients[RTE_PER_LCORE(g_socket_id)][i]
-				      .cl->s_out,
-				  CMDLINE_QUIT_MSG, sizeof(CMDLINE_QUIT_MSG));
+			ret = write(cmdline_clients[RTE_PER_LCORE(g_socket_id)]
+						   [i].cl->s_out,
+				    CMDLINE_QUIT_MSG, sizeof(CMDLINE_QUIT_MSG));
 
 			pktj_cmdline_free(
 			    cmdline_clients[RTE_PER_LCORE(g_socket_id)][i].cl);
 
-			shutdown(cmdline_clients[RTE_PER_LCORE(g_socket_id)][i]
-				     .cl->s_out,
+			shutdown(cmdline_clients[RTE_PER_LCORE(g_socket_id)]
+						[i].cl->s_out,
 				 SHUT_RDWR);
-			close(cmdline_clients[RTE_PER_LCORE(g_socket_id)][i]
-				  .cl->s_out);
+			close(cmdline_clients[RTE_PER_LCORE(g_socket_id)]
+					     [i].cl->s_out);
 
 			memset(&cmdline_clients[RTE_PER_LCORE(g_socket_id)][i],
 			       0, sizeof(struct client_data_t));

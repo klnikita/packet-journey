@@ -38,9 +38,9 @@
 #define OFF_IPV42PROTO (offsetof(struct ipv4_hdr, next_proto_id))
 #define OFF_IPV62PROTO (offsetof(struct ipv6_hdr, proto))
 #define MBUF_IPV4_2PROTO(m)                                                    \
-	(rte_pktmbuf_mtod((m), uint8_t *)+OFF_ETHHEAD + OFF_IPV42PROTO)
+	(rte_pktmbuf_mtod((m), uint8_t *) + OFF_ETHHEAD + OFF_IPV42PROTO)
 #define MBUF_IPV6_2PROTO(m)                                                    \
-	(rte_pktmbuf_mtod((m), uint8_t *)+OFF_ETHHEAD + OFF_IPV62PROTO)
+	(rte_pktmbuf_mtod((m), uint8_t *) + OFF_ETHHEAD + OFF_IPV62PROTO)
 
 #ifdef L3FWDACL_DEBUG
 

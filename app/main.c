@@ -140,8 +140,8 @@ neighbor_struct_t *neighbor4_struct[NB_SOCKETS];
 neighbor_struct_t *neighbor6_struct[NB_SOCKETS];
 
 #define RATE_LIMITED UINT8_MAX
-uint8_t
-    rlimit4_lookup_table[NB_SOCKETS][MAX_RLIMIT_RANGE_NET] __rte_cache_aligned;
+uint8_t rlimit4_lookup_table[NB_SOCKETS]
+			    [MAX_RLIMIT_RANGE_NET] __rte_cache_aligned;
 struct rlimit6_data rlimit6_lookup_table[NB_SOCKETS][NEI_NUM_ENTRIES];
 uint32_t rlimit4_max[NB_SOCKETS][MAX_RLIMIT_RANGE]
 		    [MAX_RLIMIT_RANGE_HOST] __rte_cache_aligned;
@@ -588,15 +588,15 @@ rate_limit_step_ipv4(struct lcore_conf *qconf, struct rte_mbuf *pkt,
 					   sizeof(struct ether_hdr));
 	naddr = rte_be_to_cpu_32(ipv4_hdr->dst_addr);
 	dst_addr = (union rlimit_addr *)&naddr;
-	range_id = rlimit4_lookup_table[rte_lcore_to_socket_id(
-	    lcore_id)][dst_addr->network];
+	range_id = rlimit4_lookup_table[rte_lcore_to_socket_id(lcore_id)]
+				       [dst_addr->network];
 	// check if the dest cidr range is in the lookup table
 	if (range_id != INVALID_RLIMIT_RANGE) {
 		// increase the counter for this dest
 		// and check against the max value
 		if (qconf->rlimit4_cur[range_id][dst_addr->host]++ >=
-		    rlimit4_max[rte_lcore_to_socket_id(
-			lcore_id)][range_id][dst_addr->host]) {
+		    rlimit4_max[rte_lcore_to_socket_id(lcore_id)][range_id]
+			       [dst_addr->host]) {
 			return RATE_LIMITED;
 		}
 	}
@@ -1173,7 +1173,8 @@ filter_packets(uint32_t lcore_id, struct rte_mbuf **pkts,
 	for (i = 0; i < nb_res; ++i) {
 		// if the packet must be filtered, free it and don't add it back
 		// in pkts
-		if (unlikely(acl4 != NULL && (res[i] & ACL_DENY_SIGNATURE) != 0)) {
+		if (unlikely(acl4 != NULL &&
+			     (res[i] & ACL_DENY_SIGNATURE) != 0)) {
 /* in the ACL list, drop it */
 #ifdef L3FWDACL_DEBUG
 			dump_acl4_rule(acl_pkts[i], res[i]);
@@ -1199,7 +1200,8 @@ filter_packets(uint32_t lcore_id, struct rte_mbuf **pkts,
 	for (i = 0; i < nb_res; ++i) {
 		// if the packet must be filtered, free it and don't add it back
 		// in pkts
-		if (unlikely(acl6 != NULL && (res[i] & ACL_DENY_SIGNATURE) != 0)) {
+		if (unlikely(acl6 != NULL &&
+			     (res[i] & ACL_DENY_SIGNATURE) != 0)) {
 /* in the ACL list, drop it */
 #ifdef L3FWDACL_DEBUG
 			dump_acl6_rule(acl_pkts[i], res[i]);

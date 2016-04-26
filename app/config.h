@@ -110,8 +110,8 @@ union rlimit_addr {
 };
 extern uint8_t rlimit4_lookup_table[NB_SOCKETS][MAX_RLIMIT_RANGE_NET];
 extern struct rlimit6_data rlimit6_lookup_table[NB_SOCKETS][NEI_NUM_ENTRIES];
-extern uint32_t
-    rlimit4_max[NB_SOCKETS][MAX_RLIMIT_RANGE][MAX_RLIMIT_RANGE_HOST];
+extern uint32_t rlimit4_max[NB_SOCKETS][MAX_RLIMIT_RANGE]
+			   [MAX_RLIMIT_RANGE_HOST];
 extern uint32_t rlimit6_max[NB_SOCKETS][NEI_NUM_ENTRIES];
 
 #define CMD_LINE_OPT_CONFIG "config"
