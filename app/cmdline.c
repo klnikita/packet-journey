@@ -182,11 +182,14 @@ struct cmd_loglevel_result {
 };
 
 static void
-cmd_loglevel_parsed(void *parsed_result, __rte_unused struct cmdline *cl,
-		    __rte_unused void *data)
+cmd_loglevel_parsed(void *parsed_result, struct cmdline *cl, void *data)
 {
 	struct cmd_loglevel_result *res = parsed_result;
-	rte_set_log_level(res->level);
+	if ((intptr_t)data) {
+		rte_set_log_level(res->level);
+	} else {
+		cmdline_printf(cl, "loglevel %d\n", rte_get_log_level());
+	}
 }
 
 cmdline_parse_token_string_t cmd_loglevel_loglevel =
@@ -194,13 +197,23 @@ cmdline_parse_token_string_t cmd_loglevel_loglevel =
 cmdline_parse_token_num_t cmd_loglevel_level =
     TOKEN_NUM_INITIALIZER(struct cmd_loglevel_result, level, UINT8);
 
-cmdline_parse_inst_t cmd_loglevel = {
+cmdline_parse_inst_t cmd_set_loglevel = {
     .f = cmd_loglevel_parsed,
-    .data = NULL,
+    .data = (void *)1,
     .help_str = "loglevel level",
     .tokens =
 	{
 	    (void *)&cmd_loglevel_loglevel, (void *)&cmd_loglevel_level, NULL,
+	},
+};
+
+cmdline_parse_inst_t cmd_get_loglevel = {
+    .f = cmd_loglevel_parsed,
+    .data = (void *)0,
+    .help_str = "loglevel",
+    .tokens =
+	{
+	    (void *)&cmd_loglevel_loglevel, NULL,
 	},
 };
 
@@ -1181,7 +1194,8 @@ cmdline_parse_ctx_t main_ctx[] = {
     (cmdline_parse_inst_t *)&cmd_obj_rlimit,
     (cmdline_parse_inst_t *)&cmd_obj_rlimit_net,
     (cmdline_parse_inst_t *)&cmd_stats,
-    (cmdline_parse_inst_t *)&cmd_loglevel,
+    (cmdline_parse_inst_t *)&cmd_get_loglevel,
+    (cmdline_parse_inst_t *)&cmd_set_loglevel,
     (cmdline_parse_inst_t *)&cmd_logtype,
     (cmdline_parse_inst_t *)&cmd_neigh,
     (cmdline_parse_inst_t *)&cmd_stats_json,
