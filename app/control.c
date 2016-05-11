@@ -853,14 +853,15 @@ control_main(void *data)
 	struct handle_res *res;
 	struct netl_handle *netl_h;
 	struct control_handle handle;
+    int result;
 
 	res = data;
 	netl_h = res->netl_h;
 	handle.socket_id = res->socket_id;
 
 	RTE_LOG(INFO, PKTJ_CTRL1, "init ok\n");
-	netl_listen(netl_h, &handle);
-	RTE_LOG(INFO, PKTJ_CTRL1, "netl_listen returned...\n");
+	result = netl_listen(netl_h, &handle);
+	RTE_LOG(WARNING, PKTJ_CTRL1, "netl_listen returned with %d...\n", result);
 
 	return 0;
 }

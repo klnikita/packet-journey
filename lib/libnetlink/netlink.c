@@ -118,7 +118,7 @@ netl_handler(struct netl_handle *h,
 
 			if (len < 0) {
 				// incomplete message
-				return -1;
+				return 0;
 			}
 
 			parse_rtattr_flags(rta_tb, IFLA_MAX, IFLA_RTA(ifi), len, 0);
@@ -126,7 +126,7 @@ netl_handler(struct netl_handle *h,
 			if (ifi->ifi_type != ARPHRD_ETHER)
 				return 0;		// This is not ethernet
 			if (rta_tb[IFLA_IFNAME] == NULL)
-				return -1;		// There should be a name, this is a bug
+				return 0;	// There should be a name, this is a bug
 
 			if (hdr->nlmsg_type == RTM_DELLINK)
 				action = LINK_DELETE;
@@ -178,7 +178,7 @@ netl_handler(struct netl_handle *h,
 
 		if (len < 0) {
 			// incomplete message
-			return -1;
+			return 0;
 		}
 
 		if (hdr->nlmsg_type == RTM_NEWADDR)
@@ -186,7 +186,7 @@ netl_handler(struct netl_handle *h,
 		else if (hdr->nlmsg_type == RTM_DELADDR)
 			action = ADDR_DELETE;
 		else
-			return -1;
+			return 0;
 
 
 		parse_rtattr_flags(rta_tb, IFA_MAX, IFA_RTA(ifa), len, 0);
@@ -219,7 +219,7 @@ netl_handler(struct netl_handle *h,
 			break;
 		default:
 			//only handling IP
-			return -1;
+			return 0;
 		}
 	}
 
@@ -231,7 +231,7 @@ netl_handler(struct netl_handle *h,
 
 		if (len < 0) {
 			// incomplete message
-			return -1;
+			return 0;
 		}
 
 		if (r->rtm_family != RTNL_FAMILY_IPMR &&
@@ -290,7 +290,7 @@ netl_handler(struct netl_handle *h,
 
 		if (len < 0) {
 			// incomplete message
-			return -1;
+			return 0;
 		}
 		// Ignore non-ip
 		if (neighbor->ndm_family != AF_INET &&
@@ -377,14 +377,14 @@ int netl_listen(struct netl_handle *h, void *args)
 	struct pollfd fds[1];
 
 	if (h == NULL)
-		return -1;
+		return -LNL_ERR_PARAM;
 
 	iov.iov_base = buf;
 
 	if (h->cb.init != NULL) {
 		err = h->cb.init(args);
 		if (err != 0)
-			return err;
+			return -LNL_ERR_PARAM;
 	}
 	fds[0].events = POLLIN;
 	fds[0].fd = h->fd;
@@ -392,25 +392,27 @@ int netl_listen(struct netl_handle *h, void *args)
 	while (h->closing != 1) {
 		int res = poll(fds, 1, NETL_POLL_TIMEOUT);
 		if (res < 0 && errno != EINTR) {
-			perror("error during cmdline_run poll");
-			return 0;
+			perror("error during netl_listen poll");
+			return -LNL_ERR_POLL;
 		}
 		if (fds[0].revents & POLLIN) {
 			iov.iov_len = sizeof(buf);
 			status = recvmsg(h->fd, &msg, 0);
 			if (status < 0) {
-				// TODO: EINT / EAGAIN / ENOBUF should continue
-				return -1;
+                if (errno == EINTR || errno == EAGAIN)
+                    continue;
+                //Does not continue on ENOBUFS since we may are losing routes
+				return -LNL_ERR_RECV;
 			}
 
 			if (status == 0) {
 				// EOF
-				return -1;
+				return -LNL_ERR_EOF;
 			}
 
 			if (msg.msg_namelen != sizeof(nladdr)) {
 				// Invalid length
-				return -1;
+				return -LNL_ERR_LEN;
 			}
 
 			for (hdr = (struct nlmsghdr *) buf;
@@ -420,7 +422,7 @@ int netl_listen(struct netl_handle *h, void *args)
 
 				if (buflen < 0 || buflen > status) {
 					// truncated
-					return -1;
+					return -LNL_ERR_TRUNC;
 				}
 
 				err = netl_handler(h, &nladdr, hdr, args);
@@ -433,8 +435,8 @@ int netl_listen(struct netl_handle *h, void *args)
 			}
 
 			if (status) {
-				// content not read
-				return -1;
+				//XXX content not read fully, warning
+				continue;
 			}
 		}
 	}

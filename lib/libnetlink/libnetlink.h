@@ -4,15 +4,13 @@
 
 #include <rte_ether.h>
 
-#define NEIGHBOR_FLAGS_INCOMPLETE 0x01
-#define NEIGHBOR_FLAGS_REACHABLE  0x02
-#define NEIGHBOR_FLAGS_STALE      0x04
-#define NEIGHBOR_FLAGS_DELAY      0x08
-#define NEIGHBOR_FLAGS_PROBE      0x10
-#define NEIGHBOR_FLAGS_FAILED     0x20
-#define NEIGHBOR_FLAGS_NOARP      0x40
-#define NEIGHBOR_FLAGS_PERMANENT  0x80
-#define NEIGHBOR_FLAGS_NONE       0x00
+#define LNL_ERR              0x0001
+#define LNL_ERR_PARAM        0x0002
+#define LNL_ERR_POLL         0x0004
+#define LNL_ERR_RECV         0x0008
+#define LNL_ERR_EOF          0x0010
+#define LNL_ERR_LEN          0x0020
+#define LNL_ERR_TRUNC        0x0040
 
 typedef enum { LINK_ADD, LINK_DELETE } link_action_t;
 typedef enum { ADDR_ADD, ADDR_DELETE } addr_action_t;

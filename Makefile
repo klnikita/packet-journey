@@ -40,7 +40,7 @@ help:
 # we use clang-format-3.7, format your code before commiting
 .PHONY: format
 format:
-	clang-format -i */*.h */*.c
+	clang-format38 -i */*.h */*.c
 
 include $(RTE_SDK)/mk/rte.extsubdir.mk
 
